@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Employees.API.Data;
+using Employees.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +49,9 @@ namespace Employees.API
                     }
                 });
             });
+
+            services.AddScoped<IEmployeesContext, EmployeesContext>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
