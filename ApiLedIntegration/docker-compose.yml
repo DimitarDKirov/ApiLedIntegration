@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  employeesdb:
+    image: mongo
+
+  employees.api:
+    image: ${DOCKER_REGISTRY-}employeesapi
+    build:
+      context: .
+      dockerfile: src/Services/SystemLayer/Employees/Employees.API/Dockerfile
+
+volumes: 
+  mongo_data: 

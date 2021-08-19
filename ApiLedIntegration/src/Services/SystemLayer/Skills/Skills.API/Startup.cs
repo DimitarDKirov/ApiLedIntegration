@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Employees.API.Data;
-using Employees.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Skills.API.Repositories;
 
-namespace Employees.API
+namespace Skills.API
 {
     public class Startup
     {
@@ -27,19 +26,23 @@ namespace Employees.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
+            });
+
+            services.AddScoped<ISkillSetRepository, SkillSetRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Employees API",
-                    Description = "An API for retrieving employee records from the HR system!",
+                    Title = "Skills API",
+                    Description = "An API for retrieving employee skillset records from the Skills system!",
                 });
             });
-
-            services.AddScoped<IEmployeesContext, EmployeesContext>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +68,6 @@ namespace Employees.API
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }
