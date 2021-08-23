@@ -3,12 +3,52 @@ version: '3.4'
 services:
   employeesdb:
     image: mongo
+  
+  skillsdb:
+    image: redis:alpine
+  
+  crmdb:
+    image: postgres
+  
+  erpdb:
+    image: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+  portainer:
+    image: portainer/portainer-ce
 
   employees.api:
     image: ${DOCKER_REGISTRY-}employeesapi
     build:
       context: .
       dockerfile: src/Services/SystemLayer/Employees/Employees.API/Dockerfile
+  
+  skills.api:
+    image: ${DOCKER_REGISTRY-}skillsapi
+    build:
+      context: .
+      dockerfile: src/Services/SystemLayer/Skills/Skills.API/Dockerfile
+
+  crm.api:
+    image: ${DOCKER_REGISTRY-}crmapi
+    build:
+      context: .
+      dockerfile: src/Services/SystemLayer/Crm/Crm.API/Dockerfile
+
+  erp.api:
+    image: ${DOCKER_REGISTRY-}erpapi
+    build:
+      context: .
+      dockerfile: src/Services/SystemLayer/Erp/Erp.API/Dockerfile
 
 volumes: 
-  mongo_data: 
+  mongo_data:
+  portainer_data:
+  postgres_data:
+  postgres_data2:
+  pgadmin_data:
+
+
+
