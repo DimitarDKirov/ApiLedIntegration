@@ -97,9 +97,49 @@ services:
     container_name: erp.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=Server=erpdb;Port=5433;Database=ErpDb;User Id=admin;Password=admin1234;"
+      - "DatabaseSettings:ConnectionString=Server=erpdb;Port=5432;Database=ErpDb;User Id=admin;Password=admin1234;"
     depends_on:
       - erpdb
     ports:
       - "8003:80"
+
+
+  audit.api:
+    container_name: audit.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:CrmUrl=http://crm.api"
+      - "ApiSettings:ErpUrl=http://erp.api"
+    depends_on:
+      - erp.api
+      - crm.api
+    ports:
+      - "8004:80"
+
+  opportunity.api:
+    container_name: opportunity.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:EmployeesUrl=http://employees.api"
+      - "ApiSettings:SkillsUrl=http://skills.api"
+      - "ApiSettings:CrmUrl=http://crm.api"
+    depends_on:
+      - employees.api
+      - skills.api
+      - crm.api
+    ports:
+      - "8005:80"
+
+
+  requestforquote.api:
+    container_name: requestforquote.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:AuditUrl=http://audit.api"
+      - "ApiSettings:OpportunityUrl=http://opportunity.api"
+    depends_on:
+      - audit.api
+      - opportunity.api
+    ports:
+      - "8006:80"
 

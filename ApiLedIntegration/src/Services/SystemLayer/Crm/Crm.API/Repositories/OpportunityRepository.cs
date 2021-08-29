@@ -40,8 +40,8 @@ namespace Crm.API.Repositories
 
             var affected =
                 await connection.ExecuteAsync
-                    ("INSERT INTO Opportunity (Customer, RequiredSkills, AccountManagerId, DeliveryManagerId) VALUES (@Customer, @RequiredSkills, @AccountManagerId, @DeliveryManagerId)",
-                        new { Customer = opportunity.Customer, RequiredSkills = opportunity.RequiredSkills, AccountManagerId = opportunity.AccountManagerId, DeliveryManagerId = opportunity.DeliveryManagerId });
+                    ("INSERT INTO Opportunity (Customer, RequiredSkills, AccountManagerId, DeliveryManagerId, Department) VALUES (@Customer, @RequiredSkills, @AccountManagerId, @DeliveryManagerId)",
+                        new { Customer = opportunity.Customer, RequiredSkills = opportunity.RequiredSkills, AccountManagerId = opportunity.AccountManagerId, DeliveryManagerId = opportunity.DeliveryManagerId, Department = opportunity.Department });
 
             if (affected == 0)
                 return false;
@@ -54,8 +54,8 @@ namespace Crm.API.Repositories
             using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var affected = await connection.ExecuteAsync
-                ("UPDATE Opportunity SET Customer=@Customer, RequiredSkills=@RequiredSkills, AccountManagerId=@AccountManagerId, DeliveryManagerId=@DeliveryManagerId WHERE Id=@Id",
-                    new { Customer = opportunity.Customer, RequiredSkills = opportunity.RequiredSkills, AccountManagerId = opportunity.AccountManagerId, DeliveryManagerId = opportunity.DeliveryManagerId });
+                ("UPDATE Opportunity SET Customer=@Customer, RequiredSkills=@RequiredSkills, AccountManagerId=@AccountManagerId, DeliveryManagerId=@DeliveryManagerId, Department = @Department WHERE Id=@Id",
+                    new { Customer = opportunity.Customer, RequiredSkills = opportunity.RequiredSkills, AccountManagerId = opportunity.AccountManagerId, DeliveryManagerId = opportunity.DeliveryManagerId, Department = opportunity.Department });
 
             if (affected == 0)
                 return false;
@@ -74,6 +74,20 @@ namespace Crm.API.Repositories
                 return false;
 
             return true;
+        }
+
+        public async Task<IEnumerable<Opportunity>> GetOpportunities()
+        {
+            using var connection = new NpgsqlConnection
+                (_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
+
+            var opportunities = await connection.QueryAsync<Opportunity>
+                ("SELECT * FROM Opportunity");
+
+            if (opportunities == null)
+                return new List<Opportunity>() { };
+
+            return opportunities;
         }
     }
 }

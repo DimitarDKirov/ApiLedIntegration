@@ -20,6 +20,14 @@ namespace Erp.API.Controllers
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
+        [HttpGet(Name = "GetProjects")]
+        [ProducesResponseType(typeof(IEnumerable<Project>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        {
+            var projects = await _repository.GetProjects();
+            return Ok(projects);
+        }
+
         [HttpGet("{id}", Name = "GetProject")]
         [ProducesResponseType(typeof(Project), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Project>> GetProject(int id)

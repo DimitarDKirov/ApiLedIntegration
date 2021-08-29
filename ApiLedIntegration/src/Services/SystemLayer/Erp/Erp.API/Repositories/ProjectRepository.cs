@@ -40,8 +40,8 @@ namespace Erp.API.Repositories
 
             var affected =
                 await connection.ExecuteAsync
-                    ("INSERT INTO Project (Customer, StartDate, EndDate, Budget, Status, Team) VALUES (@Customer, @StartDate, @EndDate, @Budget, @Status, @Team)",
-                        new { Customer = project.Customer, StartDate = project.StartDate, EndDate = project.EndDate, Budget = project.Budget, Status = project.Status, Team = project.Team });
+                    ("INSERT INTO Project (Customer, StartDate, EndDate, Budget, Status, Team, Department) VALUES (@Customer, @StartDate, @EndDate, @Budget, @Status, @Team)",
+                        new { Customer = project.Customer, StartDate = project.StartDate, EndDate = project.EndDate, Budget = project.Budget, Status = project.Status, Team = project.Team, Department = project.Department });
 
             if (affected == 0)
                 return false;
@@ -54,8 +54,8 @@ namespace Erp.API.Repositories
             using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var affected = await connection.ExecuteAsync
-                ("UPDATE Project SET Customer=@Customer, StartDate=@StartDate, EndDate=@EndDate, Budget=@Budget, Status=@Status, Team=@Team WHERE Id=@Id",
-                    new { Customer = project.Customer, StartDate = project.StartDate, EndDate = project.EndDate, Budget = project.Budget, Status = project.Status, Team = project.Team });
+                ("UPDATE Project SET Customer=@Customer, StartDate=@StartDate, EndDate=@EndDate, Budget=@Budget, Status=@Status, Team=@Team, Department=@Department WHERE Id=@Id",
+                    new { Customer = project.Customer, StartDate = project.StartDate, EndDate = project.EndDate, Budget = project.Budget, Status = project.Status, Team = project.Team, Department = project.Department });
 
             if (affected == 0)
                 return false;
@@ -74,6 +74,19 @@ namespace Erp.API.Repositories
                 return false;
 
             return true;
+        }
+
+        public async Task<IEnumerable<Project>> GetProjects()
+        {
+            using var connection = new NpgsqlConnection
+                (_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
+
+            var projects = await connection.QueryAsync<Project>("SELECT * FROM Project");
+
+            if (projects == null)
+                return new List<Project>() { };
+
+            return projects;
         }
     }
 }

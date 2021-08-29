@@ -43,12 +43,33 @@ services:
       context: .
       dockerfile: src/Services/SystemLayer/Erp/Erp.API/Dockerfile
 
+  audit.api:
+    image: ${DOCKER_REGISTRY-}auditapi
+    build:
+      context: .
+      dockerfile: src/Services/ProcessLayer/Audit/Audit.API/Dockerfile
+
+  opportunity.api:
+    image: ${DOCKER_REGISTRY-}opportunityapi
+    build:
+      context: .
+      dockerfile: src/Services/ProcessLayer/Opportunity/Opportunity.API/Dockerfile
+
+  requestforquote.api:
+    image: ${DOCKER_REGISTRY-}requestforquoteapi
+    build:
+      context: .
+      dockerfile: src/Services/ExperienceLayer/RequestForQuote/RequestForQuote.API/Dockerfile
+
 volumes: 
   mongo_data:
   portainer_data:
   postgres_data:
   postgres_data2:
   pgadmin_data:
+
+
+
 
 
 

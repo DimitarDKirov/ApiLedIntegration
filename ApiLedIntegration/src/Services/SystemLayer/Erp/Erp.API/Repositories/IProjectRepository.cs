@@ -8,6 +8,8 @@ namespace Erp.API.Repositories
 {
     public interface IProjectRepository
     {
+        Task<IEnumerable<Project>> GetProjects();
+
         Task<Project> GetProject(int id);
 
         Task<bool> CreateProject(Project project);

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Crm.API.Entities
+namespace Opportunity.API.Models
 {
-    public class Opportunity
+    public class OpportunityModel
     {
         public int Id { get; set; }
 

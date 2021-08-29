@@ -20,6 +20,14 @@ namespace Crm.API.Controllers
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
+        [HttpGet(Name = "GetOpportunities")]
+        [ProducesResponseType(typeof(IEnumerable<Opportunity>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<Opportunity>>> GetOpportunities()
+        {
+            var opportunities = await _repository.GetOpportunities();
+            return Ok(opportunities);
+        }
+
         [HttpGet("{id}", Name ="GetOpportunity")]
         [ProducesResponseType(typeof(Opportunity), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Opportunity>> GetOpportunity(int id)

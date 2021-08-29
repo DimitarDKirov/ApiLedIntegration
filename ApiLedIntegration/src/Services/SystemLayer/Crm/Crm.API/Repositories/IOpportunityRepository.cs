@@ -8,6 +8,8 @@ namespace Crm.API.Repositories
 {
     public interface IOpportunityRepository
     {
+        Task<IEnumerable<Opportunity>> GetOpportunities();
+
         Task<Opportunity> GetOpportunity(int id);
 
         Task<bool> CreateOpportunity(Opportunity opportunity);

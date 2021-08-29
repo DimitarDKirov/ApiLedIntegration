@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Erp.API.Entities
+namespace Audit.API.Models
 {
-    public class Project
+    public class ProjectModel
     {
         public int Id { get; set; }
 
