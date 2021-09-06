@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{EA777A76-C11D-473E-A97A-382489807E20}"
 EndProject
@@ -41,10 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RequestForQuote", "RequestF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RequestForQuote.API", "src\Services\ExperienceLayer\RequestForQuote\RequestForQuote.API\RequestForQuote.API.csproj", "{9A5AA4C8-0A26-401C-B21C-1F18AB5A2FEB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{A410139B-9BFE-439F-864B-85E811F03432}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotApiGateway", "src\Services\ApiGateways\OcelotApiGateway\OcelotApiGateway.csproj", "{09C2E93C-235E-4D74-8A17-371EAEDE2490}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,10 +79,6 @@ Global
 		{9A5AA4C8-0A26-401C-B21C-1F18AB5A2FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A5AA4C8-0A26-401C-B21C-1F18AB5A2FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A5AA4C8-0A26-401C-B21C-1F18AB5A2FEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09C2E93C-235E-4D74-8A17-371EAEDE2490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09C2E93C-235E-4D74-8A17-371EAEDE2490}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09C2E93C-235E-4D74-8A17-371EAEDE2490}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09C2E93C-235E-4D74-8A17-371EAEDE2490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,8 +101,6 @@ Global
 		{F366D73A-62B0-4F7C-BD12-D665922DF24D} = {EA777A76-C11D-473E-A97A-382489807E20}
 		{A8CA16C7-BE54-4E5D-8735-979F48ED51F6} = {F366D73A-62B0-4F7C-BD12-D665922DF24D}
 		{9A5AA4C8-0A26-401C-B21C-1F18AB5A2FEB} = {A8CA16C7-BE54-4E5D-8735-979F48ED51F6}
-		{A410139B-9BFE-439F-864B-85E811F03432} = {EA777A76-C11D-473E-A97A-382489807E20}
-		{09C2E93C-235E-4D74-8A17-371EAEDE2490} = {A410139B-9BFE-439F-864B-85E811F03432}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60B3D0F3-A415-4CB5-BA4A-190141CDB0CC}
