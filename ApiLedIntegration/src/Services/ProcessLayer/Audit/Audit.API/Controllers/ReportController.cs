@@ -29,6 +29,7 @@ namespace Audit.API.Controllers
             var opportunities = await _opportunityService.GetOpportunities();
             var projects = await _projectService.GetProjects();
 
+            int opportunitiesCount = opportunities.Count();
             int startedProjectsCount = projects.Count();
             int finishedProjectsCount = projects.Where(x => x.Status == 3).Count();
             int failedProjectsCount = projects.Where(x => x.Status == 5).Count();
@@ -38,9 +39,9 @@ namespace Audit.API.Controllers
                 StartedProjects = startedProjectsCount,
                 FinishedProjects = finishedProjectsCount,
                 FailedProjects = failedProjectsCount,
-                StartToFailRatio = (double)startedProjectsCount / (double)failedProjectsCount,
-                StartToFinishRatio = (double)startedProjectsCount / (double)finishedProjectsCount,
-                OpportunityToProjectRatio = (double)opportunities.Count() / (double)projects.Count(),
+                StartToFailRatio = Math.Round(startedProjectsCount / (double)failedProjectsCount, 2),
+                StartToFinishRatio = Math.Round(startedProjectsCount / (double)finishedProjectsCount, 2),
+                OpportunityToProjectRatio = Math.Round(opportunitiesCount / (double)startedProjectsCount, 2),
                 AverageDaysToFinishNet = GetAverageDaysToFinishPerDepartment(projects.Where(x => x.Department.Equals(".NET") && x.Status == 3)),
                 AverageDaysToFinishJava = GetAverageDaysToFinishPerDepartment(projects.Where(x => x.Department.Equals("Java") && x.Status == 3)),
                 AverageDaysToFinishPhp = GetAverageDaysToFinishPerDepartment(projects.Where(x => x.Department.Equals("PHP") && x.Status == 3)),
